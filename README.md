@@ -113,7 +113,7 @@ You will also need Visual C++ Redistributables and 7z
 
 ### Installation
 
-You only need to download the xamp_tools.exe and copy it to your XAMPP directory. Then execute it and open scheduler, so you can follow onscreen instructions to backup your database.
+You only need to download the xamp_tools.exe and copy it to your XAMPP directory. Then execute it and open scheduler, so you can follow on screen instructions to backup your database.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
