@@ -72,7 +72,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://github.com/hybri-id/xampp_tools/tree/main/images)
 
-After searching in the net for a consisten mySQL backup tool for XAMPP I ended doing my own tool because I didn't found something that fits my needs. This tool backups all mySQL databases of XAMPP directory, then compress them in .gz format to save disk space. You can also schedule the backups and restore them with only few key presses. It has many advantages because the program is modular.
+After searching in the net for a consistent mySQL backup tool for XAMPP I ended doing my own tool because I didn't found something that fits my needs. This tool backups all mySQL databases of XAMPP directory, then compress them in .gz format to save disk space. You can also schedule the backups and restore them with only few key presses. It has many advantages because the program is modular.
 
 Here's why:
 * Your time should be focused on make something else than backup manually your databases with phpMyAdmin. A project that solves a problem, saves time and helps others.
