@@ -26,7 +26,7 @@
   <p align="center">
     This is a tool to schedule and restore the backup of XAMPP mySQL databases!
     <br />
-    <a href="https://github.com/hybri-id/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/hybri-id/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/hybri-id/xampp_tools/tree/main/images">Screenshots</a>
