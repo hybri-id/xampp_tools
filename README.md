@@ -89,7 +89,7 @@ Use the `README.md` to get started.
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+This section list frameworks/libraries used to bootstrap the project.
 
 * [![Batch scripting][Next.js]][Next-url]
 * [![Net Framework][Net-shield]][Net-url]
