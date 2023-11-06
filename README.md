@@ -11,7 +11,6 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 
@@ -180,6 +179,8 @@ Your Name - [@your_twitter](https://twitter.com/) - out_1990@hotmail.es
 
 Project Link: [https://github.com/hybri-id/xampp_tools](https://github.com/hybri-id/xampp_tools)
 
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -215,7 +216,7 @@ Use this space to list resources you find helpful and would like to give credit 
 [license-shield]: https://img.shields.io/pypi/l/sematic?style=for-the-badge
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
+[linkedin-url]: https://es.linkedin.com/in/xaviouteiral
 [product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/Windows%20Terminal-%234D4D4D.svg?style=for-the-badge&logo=windows-terminal&logoColor=white
 [Next-url]: https://learn.microsoft.com/es-es/windows-server/administration/windows-commands/cmd
