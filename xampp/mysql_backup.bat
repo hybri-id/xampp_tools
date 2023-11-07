@@ -19,7 +19,7 @@ if "%ERRORLEVEL%"=="0" (
 
 :continue		
 set dbUser=root
-set dbPassword=dciadmin_973911
+set dbPassword=
 set backupDir="%~dp0backup\mysql"
 set mysqldump="%~dp0mysql\bin\mysqldump.exe"
 set mysqlDataDir="%~dp0mysql\data"
