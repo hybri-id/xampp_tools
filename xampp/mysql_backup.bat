@@ -5,7 +5,7 @@
 ::@HybriiD - MOD
 ::A simple batch file to make mysql database backups. Plus it compress the .sql files with .gz to save disk space.
 ::mysql-backup.bat
-
+::2023
 ::mysql_backup+mysql_restore+scheduler
 
 @echo off
