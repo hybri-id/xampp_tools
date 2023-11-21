@@ -188,6 +188,7 @@ Project Link: [https://github.com/hybri-id/xampp_tools](https://github.com/hybri
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+[![trophy](https://github-profile-trophy.vercel.app/?username=hybri-id&theme=darkhub&no-frame=true)](https://github.com/hybri-id)
 
 
 <!-- ACKNOWLEDGMENTS -->
