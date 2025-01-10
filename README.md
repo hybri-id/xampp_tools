@@ -219,7 +219,7 @@ Use this space to list resources you find helpful and would like to give credit 
 [stars-url]: https://github.com/hybri-id/xampp_tools/stargazers
 [issues-shield]: https://img.shields.io/github/issues/hybri-id/xampp_tools.svg?style=for-the-badge
 [issues-url]: https://github.com/hybri-id/xampp_tools/issues
-[license-shield]: https://img.shields.io/pypi/l/sematic?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/hybri-id/xampp_tools.svg?style=for-the-badge
 [license-url]: https://github.com/hybri-id/xampp_tools/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://es.linkedin.com/in/xaviouteiral
