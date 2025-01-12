@@ -1,8 +1,7 @@
 ::@HybriiD_MOD
+::hybri-id/xampp_tools
 ::mysql_backup+mysql_restore+scheduler
 ::A simple batch file to schedule sql database backups. Plus it can make and restore backups in .gz format to save space.
-
-::2023
 ::scheduler.bat
 
 @echo off
@@ -51,6 +50,14 @@ if "%ERRORLEVEL%"=="0" (
 )
 
 :check_mysql
+FOR /F "tokens=* USEBACKQ" %%F IN (`dir "mysqldump.exe" /S/B`) DO (
+SET mysqldump=%%F
+)
+if not exist %mysqldump% (
+	goto mysql_not_installed
+) else (
+	echo ALLRIGHT!
+)
 tasklist /FI "IMAGENAME eq mysqld.exe" 2>NUL | find /I /N "mysqld.exe">NUL
 if "%ERRORLEVEL%"=="0" (
 	goto re
@@ -133,3 +140,9 @@ if "%ERRORLEVEL%"=="0" (
 	goto check_mysql
 ) else goto re
 pause
+:mysql_not_installed
+ echo -----------------------------
+ echo !!WARNING COULDN'T CONTINUE!!
+ echo -----------------------------
+ echo "Message: MySQL is not installed, please install it first (e.g. via xampp package at https://www.apachefriends.org/es/index.html)"
+cmd /c exit -1073741510

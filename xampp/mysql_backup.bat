@@ -3,13 +3,22 @@
 ::Last active June 18, 2021 00:13
 
 ::@HybriiD - MOD
+::hybri-id/xampp_tools
 ::A simple batch file to make mysql database backups. Plus it compress the .sql files with .gz to save disk space.
 ::mysql-backup.bat
-::2023
+
 ::mysql_backup+mysql_restore+scheduler
 
 @echo off
 
+FOR /F "tokens=* USEBACKQ" %%F IN (`dir "mysqldump.exe" /S/B`) DO (
+SET mysqldump=%%F
+)
+if not exist %mysqldump% (
+	goto mysql_not_installed
+) else (
+	echo ALLRIGHT!
+)	
 tasklist /FI "IMAGENAME eq mysqld.exe" 2>NUL | find /I /N "mysqld.exe">NUL
 if "%ERRORLEVEL%"=="0" (
 	goto continue
@@ -17,13 +26,13 @@ if "%ERRORLEVEL%"=="0" (
 	goto mysql_not_running
 )
 
-:continue		
+:: set the paths and SQL user/passwords
+:continue
 set dbUser=root
 set dbPassword=
-set backupDir="%~dp0backup\mysql"
-set mysqldump="%~dp0mysql\bin\mysqldump.exe"
-set mysqlDataDir="%~dp0mysql\data"
 set zip="%~dp07z.exe"
+set backupDir="%~dp0backup\mysql"
+set mysqlDataDir="%~dp0mysql\data"
 
  :: get date
  For /f "tokens=1-4 delims=/ " %%a in ('date /t') do (set mydate=%%c-%%b-%%a)
@@ -49,7 +58,8 @@ set zip="%~dp07z.exe"
 
  	%zip% a -tgzip %backupDir%\%dirName%\%%f.sql.gz %backupDir%\%dirName%\%%f.sql
  	echo[
- 	echo Done compress and archive thus file..now lets delete SQL file...
+ 	echo Done compress and archive thus files... 
+	echo Now lets delete uncompressed SQL file...
  	del %backupDir%\%dirName%\%%f.sql
  	echo OK, now I need to take a breather for 3 seconds...
  	choice /d y /t 3 > nul
@@ -74,7 +84,13 @@ set zip="%~dp07z.exe"
  IF ERRORLEVEL 1 SET M=1
  IF ERRORLEVEL 2 SET M=2
  if %M%==1 (
- 	start mysql_start
+ 	start /b "" mysql_start
+	goto :continue
  )
 )
-exit
+:mysql_not_installed
+ echo -----------------------------
+ echo !!WARNING COULDN'T CONTINUE!!
+ echo -----------------------------
+ echo "Message: MySQL is not installed, please install it first (e.g. via xampp package at https://www.apachefriends.org/es/index.html)"
+cmd /c exit -1073741510

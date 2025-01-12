@@ -1,12 +1,19 @@
 ::@HybriiD_MOD
+::hybri-id/xampp_tools
 ::mysql_backup+mysql_restore+scheduler
 ::A simple batch file to restore sql database backups. Plus it fits .gz compressed backups to save disk space.
-
-::2023
 ::mysql-restore.bat
 
 @echo off
 
+FOR /F "tokens=* USEBACKQ" %%F IN (`dir "mysqldump.exe" /S/B`) DO (
+SET mysqldump=%%F
+)
+if not exist %mysqldump% (
+	goto mysql_not_installed
+) else (
+	echo ALLRIGHT!
+)	
 tasklist /FI "IMAGENAME eq mysqld.exe" 2>NUL | find /I /N "mysqld.exe">NUL
 if "%ERRORLEVEL%"=="0" (
 	goto continue
@@ -62,10 +69,22 @@ echo -----------------------------
 pause
 exit
 
-:mysql_not_running
-echo -----------------------------
-echo !!WARNING COULDN'T CONTINUE!!
-echo -----------------------------
-echo Message: mysqld.exe is not running, please start it (e.g. via xampp-control)
-pause
-exit
+ :mysql_not_running
+ echo -----------------------------
+ echo !!WARNING COULDN'T CONTINUE!!
+ echo -----------------------------
+ echo "Message: mysqld.exe is not running, please start it (e.g. via xampp-control)"
+ echo Do you want we try to start the service for the backup task? (Y/N)
+ CHOICE /C:YN
+ IF ERRORLEVEL 1 SET M=1
+ IF ERRORLEVEL 2 SET M=2
+ if %M%==1 (
+ 	start /b "" mysql_start
+	goto :continue
+ )
+:mysql_not_installed
+ echo -----------------------------
+ echo !!WARNING COULDN'T CONTINUE!!
+ echo -----------------------------
+ echo "Message: MySQL is not installed, please install it first (e.g. via xampp package at https://www.apachefriends.org/es/index.html)"
+cmd /c exit -1073741510
