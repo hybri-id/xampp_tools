@@ -26,7 +26,7 @@
   <p align="center">
     This is a tool to schedule and restore the backup of XAMPP MySQL databases!
     <br />
-    <a target="_blank" href="https://github.com/hybri-id/xampp_tools/raw/main/xampp_tools.exe">
+    <a target="_blank" href="https://github.com/hybri-id/xampp_tools/releases/download/xampp_tools_v1.0/xampp_tools.exe">
     <br />
     <img src="https://img.shields.io/badge/DOWNLOAD-blue" alt="Download" width="190" height="60">
     </a>
