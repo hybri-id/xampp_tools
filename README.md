@@ -106,11 +106,11 @@ This section list frameworks/libraries used to bootstrap the project.
 <!-- GETTING STARTED -->
 ## Getting Started
 
-The program is packed under xampp_tools.exe package. You can also download .bat files alone so fit your needs, they work standalone aswell.
+The program is packed under xampp_tools.exe package. You can also download .bat files alone to fit your needs, they work standalone aswell.
 
 ### Prerequisites
 
-You will need to install XAMPP control panel first (or install it as a service so the scheduler can do the backup task).
+You will need to install XAMPP first (and install MySQL as a service so the scheduler can do the backup task).
 You will also need Visual C++ Redistributables and 7z for database compression.
 
 1. Get it free at [Visual C++ Redistributables](https://learn.microsoft.com/es-es/cpp/windows/latest-supported-vc-redist?view=msvc-170)
@@ -128,7 +128,7 @@ You will also need Visual C++ Redistributables and 7z for database compression.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-* Scheduler: You can schedule backups from here, aslong as make instant backups and restores of all the databases.
+* Scheduler: You can schedule SQL backups from here, as long as make instant backups and restore all the databases.
 
 _For more examples, please refer to the [Documentation]()_
 
@@ -137,11 +137,13 @@ _For more examples, please refer to the [Documentation]()_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Add htdocs backup tool
-- [x] Add a feature to backup/restore single database
-- [ ] Add Additional Features like make oneclick full backup or save server user/passwords in a file.
-- [ ] Add "components" document to improve the readme
+- [X] Add compression to the database's backup to save space.
+- [ ] Add htdocs backup tool.
+- [ ] Add a feature to backup/restore a single database.
+- [ ] Add additional features like saving server's user/passwords in a file, or back up htdocs.
+- [ ] Add "components" document to improve the readme.
 - [ ] Multi-language Support
+    - [x] English
     - [ ] Chinese
     - [ ] Spanish
 
@@ -181,7 +183,7 @@ Distributed under the Apache 2.0 License. See `LICENSE.txt` for more information
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/) - out_1990@hotmail.es
+Hibri-id - out_1990@hotmail.es
 
 Project Link: [https://github.com/hybri-id/xampp_tools](https://github.com/hybri-id/xampp_tools)
 
