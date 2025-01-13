@@ -106,19 +106,20 @@ This section list frameworks/libraries used to bootstrap the project.
 <!-- GETTING STARTED -->
 ## Getting Started
 
-The program is packed under xampp_tools.exe package. You can also download .bat files alone so fit your needs.
+The program is packed under xampp_tools.exe package. You can also download .bat files alone so fit your needs, they work standalone aswell.
 
 ### Prerequisites
 
-You will need to execute mysql under XAMPP control panel first (or install it as a service so the scheduler can do the backup task).
-You will also need Visual C++ Redistributables and 7z
+You will need to install XAMPP control panel first (or install it as a service so the scheduler can do the backup task).
+You will also need Visual C++ Redistributables and 7z for database compression.
 
 1. Get it free at [Visual C++ Redistributables](https://learn.microsoft.com/es-es/cpp/windows/latest-supported-vc-redist?view=msvc-170)
 2. Get it free at [7zip](https://www.7-zip.org/a/7z1900-x64.exe)
 
 ### Installation
 
-You only need to download the xamp_tools.exe and copy it to your XAMPP directory. Then execute it and open scheduler, so you can follow on screen instructions to backup your database.
+1. Download the xamp_tools.exe and copy/move it to your main XAMPP directory (ex. "C:\xampp"). 
+2. Open it, so you can follow on screen instructions to backup/restore your databases.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
