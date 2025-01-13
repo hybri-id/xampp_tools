@@ -36,7 +36,7 @@ if "%ERRORLEVEL%"=="0" (
 :: set the paths and SQL user/passwords
 :continue
 	set dbUser=root
-	set dbPassword=dciadmin_973911
+	set dbPassword=
 	set zip=%xamppfolder%7z.exe
 	set backupDir=%xamppfolder%backup\mysql
 	set mysqlDataDir=%xamppfolder%mysql\data
