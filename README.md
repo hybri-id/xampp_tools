@@ -183,11 +183,10 @@ Distributed under the Apache 2.0 License. See `LICENSE.txt` for more information
 <!-- CONTACT -->
 ## Contact
 
-Hibri-id - out_1990@hotmail.es
+Hibri-id - out_1990@hotmail.es - [![LinkedIn][linkedin-shield]][linkedin-url]
 
 Project Link: [https://github.com/hybri-id/xampp_tools](https://github.com/hybri-id/xampp_tools)
 
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
