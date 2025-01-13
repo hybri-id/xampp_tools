@@ -24,7 +24,7 @@
   <h3 align="center">Xampp_Tools (Windows)</h3>
 
   <p align="center">
-    This is a tool to schedule and restore the backup of XAMPP mySQL databases!
+    This is a tool to schedule and restore the backup of XAMPP MySQL databases!
     <br />
     <a target="_blank" href="https://github.com/hybri-id/xampp_tools/raw/main/xampp_tools.exe">
     <br />
