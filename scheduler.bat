@@ -1,41 +1,3 @@
-::[Bat To Exe Converter]
-::
-::fBE1pAF6MU+EWHreyFoxJQtEcxCNM2epOq0d5fjr072d7EkRWII=
-::fBE1pAF6MU+EWHreyFoxJQtEcxCNM2epOq0d5fjr072d7EgFUYI=
-::fBE1pAF6MU+EWHreyFoxJQtEcxCNM2epOq0d5fjr0+eesVwRa+A+e4TOyvqMIfRz
-::fBE1pAF6MU+EWHreyFoxJQtEcxCNM2epOq0d5fjr0+eesVwRa/A6a5vUyLHAIuEHig==
-::fBE1pAF6MU+EWHreyFoxJQtEcxCNM2epOq0d5fjr0/mEqkgZQe46asHZ26Du
-::YAwzoRdxOk+EWAjk
-::fBw5plQjdCyDJEGF+VIgFw9bQwiRAHO7C6UM1Pv45++Dt0EYRqw2e4C7
-::YAwzuBVtJxjWCl3EqQJgSA==
-::ZR4luwNxJguZRRnk
-::Yhs/ulQjdF+5
-::cxAkpRVqdFKZSjk=
-::cBs/ulQjdF+5
-::ZR41oxFsdFKZSTk=
-::eBoioBt6dFKZSDk=
-::cRo6pxp7LAbNWATEpCI=
-::egkzugNsPRvcWATEpCI=
-::dAsiuh18IRvcCxnZtBJQ
-::cRYluBh/LU+EWAnk
-::YxY4rhs+aU+IeA==
-::cxY6rQJ7JhzQF1fEqQJhZks0
-::ZQ05rAF9IBncCkqN+0xwdVsFAlTi
-::ZQ05rAF9IAHYFVzEqQIIKRZEXES2M2S2FdU=
-::eg0/rx1wNQPfEVWB+kM9LVsJDByDMXuqOaET5+Tooe+fpy0=
-::fBEirQZwNQPfEVWB+kM9LVsJDGQ=
-::cRolqwZ3JBvQF1fEqQIRaAhZTQiOfEyPL/UI56j57umMt11SRucsbIDJ3/S2Ie0D+gXXRLpt8ntOmckNHx5LHg==
-::dhA7uBVwLU+EWH7KxgxQ
-::YQ03rBFzNR3SWATE3FsyOhJdAQ2mXA==
-::dhAmsQZ3MwfNWATEphJie1YGHFbXXA==
-::ZQ0/vhVqMQ3MEVWAtB9wSA==
-::Zg8zqx1/OA3MEVWAtB9wSA==
-::dhA7pRFwIByZRRnk
-::Zh4grVQjdCyDJEGF+VIgFw9bQwiRAHO7C6UM1PD64vqXnVkSW+4sR5eNjvqLOOVz
-::YB416Ek+ZW8=
-::
-::
-::978f952a14a936cc963da21a135fa983
 ::@Hybri-iD
 ::hybri-id/xampp_tools
 ::mysql_backup+mysql_restore+scheduler
@@ -195,7 +157,6 @@ goto continue
 		pause
 		goto check_mysql
 	) else goto re
-	pause
 
 :mysql_not_installed
 	echo -----------------------------

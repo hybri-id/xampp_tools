@@ -11,7 +11,7 @@
 
 @echo off
 
-:: checks for xampp & mysql installation/service execution
+:: checks for xampp & mysql installation/services
 FOR /F "tokens=* USEBACKQ" %%F IN (`dir "C:\xampp\xampp-control.exe" /S/B`) DO (
 	SET xamppfolder=%%F
 )
@@ -21,61 +21,55 @@ if exist %xamppfolder% (
 	if not "%~dp0"=="%xamppfolder%" pushd %xamppfolder%
 ) else goto xampp_not_installed
 
-FOR /F "tokens=* USEBACKQ" %%F IN (`dir "%xamppfolder%mysqldump.exe" /S/B`) DO (
-	SET mysqldump=%%F
-)
+FOR /F "tokens=* USEBACKQ" %%F IN (`dir "%xamppfolder%mysqldump.exe" /S/B`) DO SET mysqldump=%%F
 if not exist %mysqldump% goto mysql_not_installed else echo ALLRIGHT!
 
 tasklist /FI "IMAGENAME eq mysqld.exe" 2>NUL | find /I /N "mysqld.exe">NUL
-if "%ERRORLEVEL%"=="0" (
-	goto continue
-) else goto mysql_not_running
+if not "%ERRORLEVEL%"=="0" goto mysql_not_running else echo ALLRIGHT!
 
 :: set the paths and SQL user/passwords
 :continue
 	set dbUser=root
 	set dbPassword=
 	set zip=%xamppfolder%7z.exe
-	set backupDir=%xamppfolder%backup\mysql
 	set mysqlDataDir=%xamppfolder%mysql\data
+	set backupDir=%xamppfolder%backup\mysql
 
 	:: get date
 	For /f "tokens=1-4 delims=/ " %%a in ('date /t') do (set mydate=%%c-%%b-%%a)
 	:: get time
 	For /f "tokens=1-2 delims=/:" %%a in ("%TIME%") do (set mytime=%%a%%b)
 	set /a mytime+=10000
-	set dirName="%mydate%_%mytime:~-4%"
+	set dirName=%mydate%_%mytime:~-4%
 
 	:: switch to the "data" folder
 	pushd %mysqlDataDir%
 
 	:: iterate over the folder structure in the "data" folder to get the databases
 	for /d %%f in (*) do (
-
-		if not exist %backupDir%\%dirName%\ (
-			mkdir %backupDir%\%dirName%
+		cls
+		if not exist "%backupDir%\%dirName%\" (
+			mkdir "%backupDir%\%dirName%"
 		)
 		echo -----------------------------
 		echo * MySQL backup are starting *
 		echo -----------------------------
 		echo Current backup : %%f.sql
-		%mysqldump% --host="localhost" --user=%dbUser% --password=%dbPassword% --single-transaction --add-drop-table --databases %%f > %backupDir%\%dirName%\%%f.sql
-
-		%zip% a -tgzip %backupDir%\%dirName%\%%f.sql.gz %backupDir%\%dirName%\%%f.sql
-		echo Done compress and archive thus files... 
-		echo Now lets delete uncompressed SQL file...
-		del %backupDir%\%dirName%\%%f.sql
-		echo OK, now I need to take a breather for 3 seconds...
-		choice /d y /t 3 > nul
-		cls
+		%mysqldump% --host="localhost" --user=%dbUser% --password=%dbPassword% --single-transaction --add-drop-table --databases %%f > "%backupDir%\%dirName%\%%f.sql"
+		%zip% a -tgzip "%backupDir%\%dirName%\%%f.sql.gz" "%backupDir%\%dirName%\%%f.sql"
+		if "%ERRORLEVEL%"=="0" (
+			echo Done compress and archive thus files... 
+			echo Now lets delete uncompressed SQL file...
+			del %backupDir%\%dirName%\%%f.sql
+			echo OK, now I need to take a breather for 3 seconds...
+			ping 127.0.0.1 -n 1 > nul
+		) else pause
 	)
 	popd
 	echo -----------------------------
 	echo + MySQL backup are finished +
 	echo -----------------------------
-	echo:
-	start  "" "%backupDir%\"
-exit
+	start  "" "%backupDir%\%dirName%\" & exit
 
 :mysql_not_running
 	echo -----------------------------

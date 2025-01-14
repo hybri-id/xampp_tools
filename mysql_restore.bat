@@ -7,7 +7,7 @@
 
 @echo off
 
-:: checks for xampp & mysql installation/service execution
+:: checks for xampp & mysql installation/services
 FOR /F "tokens=* USEBACKQ" %%F IN (`dir "C:\xampp\xampp-control.exe" /S/B`) DO (
 	SET xamppfolder=%%F
 )
@@ -17,31 +17,59 @@ if exist %xamppfolder% (
 	if not "%~dp0"=="%xamppfolder%" pushd %xamppfolder%
 ) else goto xampp_not_installed
 
-FOR /F "tokens=* USEBACKQ" %%F IN (`dir "%xamppfolder%mysqldump.exe" /S/B`) DO (
-	SET mysqldump=%%F
-)
+FOR /F "tokens=* USEBACKQ" %%F IN (`dir "%xamppfolder%mysqldump.exe" /S/B`) DO SET mysqldump=%%F
 if not exist %mysqldump% goto mysql_not_installed else echo ALLRIGHT!
 
 tasklist /FI "IMAGENAME eq mysqld.exe" 2>NUL | find /I /N "mysqld.exe">NUL
-if "%ERRORLEVEL%"=="0" (
-	goto continue
-) else goto mysql_not_running
+if not "%ERRORLEVEL%"=="0" goto mysql_not_running else echo ALLRIGHT!
 
 :: set the paths and SQL user/passwords
-:continue		
+:continue
 	set dbUser=root
 	set dbPassword=
 	set zip=%xamppfolder%7z.exe
-	set backupDir=%xamppfolder%backup\mysql
 	set mysql=%xamppfolder%mysql\bin\mysql.exe
+	set backupDir=%xamppfolder%backup\mysql
 
+	:: get date
+	For /f "tokens=1-4 delims=/ " %%a in ('date /t') do (set mydate=%%a-%%b-%%c)
+	:: get time
+	For /f "tokens=1-2 delims=/:" %%a in ('time /t') do (set mytime=%%a.%%b)
+
+	:: Start restoring the backups
+	if not exist "%xamppfolder%\logs\" (
+			mkdir "%xamppfolder%\logs"
+	)
+	if not exist "%backupDir%\" (
+		echo The backups folder is empty!
+		timeout 3 > NUL & exit
+	)
+	SET outputlog="%xamppfolder%\logs\Xamp_Tools_Output_%mydate%_%mytime%.log"
+	SET errorlog="%xamppfolder%\logs\Xamp_Tools_Errors_%mydate%_%mytime%.log"
+	cls
+	echo -----------------------------
+	echo * MySQL restore in progress *
+	echo -----------------------------
+	echo Date: %mydate% Time: %mytime%H - Log File: Xamp_Tools_Output_%mydate%_%mytime%.log
+	echo == LOG RESTORE OUTPUT FILE %mydate%_%mytime% == >%outputlog%
+	echo == LOG RESTORE ERRORS FILE %mydate%_%mytime% == >%errorlog%
+	echo:
+	echo You can see the results of this restore checking the LOGS.
+	echo DO NOT CLOSE this window while backup restoring is in progress to avoid loss of data.
+	echo:
+	echo This window will close automatically when the backups are restored.
+	echo:
+	call :logit 1>>%outputlog% 2>>%errorlog% & exit /b 0
+	::call "%~f0" 1>>"Xamp_Tools_Output_%mydate%_%mytime%.log" 2>"Xamp_Tools_Errors_%mydate%_%mytime%.log"
+
+	:logit
 	:: search for the last backup
 	FOR /F "delims=" %%i IN ('dir "%backupDir%" /b /ad-h /t:c /od') DO SET dirName=%%i
 
 	:: switch to the "backup" folder
 	pushd "%backupDir%\%dirName%"
 
-	:: find all databases backups
+	:: find all database last backups & restore them
 	for /f tokens^=* %%i in ('where .:*') do (
 		echo Last backup found:
 		echo Path: %%~dpi ^| Name: %%~nxi
@@ -63,7 +91,7 @@ if "%ERRORLEVEL%"=="0" (
 				echo Restoring %%~nf complete!...
 				del "%%~dpi%%~nf.sql"
 				echo OK, now I need to take a breather for 3 seconds...
-				ping 127.0.0.1 -n 3 > nul
+				ping 127.0.0.1 -n 1 > nul
 				cls	
 			) else pause
 		)
@@ -72,9 +100,8 @@ if "%ERRORLEVEL%"=="0" (
 	echo -----------------------------
 	echo + MySQL restores are finished +
 	echo -----------------------------
-	echo You can now close this window.
 	echo:
-	pause
+	START "" notepad.exe %errorlog% & exit /b 0
 exit
 
 :mysql_not_running
@@ -87,8 +114,8 @@ exit
 	IF ERRORLEVEL 1 SET M=1
 	IF ERRORLEVEL 2 SET M=2
 	if %M%==1 (
-		start /min /b "" %xamppfolder%mysql_start
-		goto :continue
+		start /min /b "" %xamppfolder%mysql_start & timeout 3 > NUL
+		call :continue & exit /b 0
 	) else exit
 
 :mysql_not_installed
