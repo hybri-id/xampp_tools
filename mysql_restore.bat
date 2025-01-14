@@ -1,7 +1,8 @@
-::@HybriiD_MOD
+::@Hybri-iD
 ::hybri-id/xampp_tools
 ::mysql_backup+mysql_restore+scheduler
-::A simple batch file to restore sql database backups. Plus it fits .gz compressed backups to save disk space.
+::A simple batch file to restore sql database backups. 
+::It works with .gz compressed SQL backups to save disk space.
 ::mysql-restore.bat
 
 @echo off
@@ -24,9 +25,7 @@ if not exist %mysqldump% goto mysql_not_installed else echo ALLRIGHT!
 tasklist /FI "IMAGENAME eq mysqld.exe" 2>NUL | find /I /N "mysqld.exe">NUL
 if "%ERRORLEVEL%"=="0" (
 	goto continue
-) else (
-	goto mysql_not_running
-)
+) else goto mysql_not_running
 
 :: set the paths and SQL user/passwords
 :continue		
@@ -60,7 +59,7 @@ if "%ERRORLEVEL%"=="0" (
 			%mysql% --user=%dbUser% --password=%dbPassword% -e "CREATE DATABASE IF NOT EXISTS %%~nf"
 			%mysql% --host="localhost" --user=%dbUser% --password=%dbPassword% --force %%~nf < "%%~dpi%%~nf.sql"
 			if "%ERRORLEVEL%"=="0" (
-				echo:
+				echo :
 				echo Restoring %%~nf complete!...
 				del "%%~dpi%%~nf.sql"
 				echo OK, now I need to take a breather for 3 seconds...
@@ -69,13 +68,14 @@ if "%ERRORLEVEL%"=="0" (
 			) else pause
 		)
 	)
-
 	popd
 	echo -----------------------------
 	echo + MySQL restores are finished +
 	echo -----------------------------
+	echo You can now close this window.
+	echo:
 	pause
-	exit
+exit
 
 :mysql_not_running
 	echo -----------------------------
@@ -87,8 +87,8 @@ if "%ERRORLEVEL%"=="0" (
 	IF ERRORLEVEL 1 SET M=1
 	IF ERRORLEVEL 2 SET M=2
 	if %M%==1 (
-	start /b "" mysql_start
-	goto :continue
+		start /min /b "" %xamppfolder%mysql_start
+		goto :continue
 	) else exit
 
 :mysql_not_installed

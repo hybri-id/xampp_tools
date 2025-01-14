@@ -2,12 +2,12 @@
 ::Kriptonium/xampp-mysql-backup.bat
 ::Last active June 18, 2021 00:13
 
-::@HybriiD - MOD
+::@Hybri-iD
 ::hybri-id/xampp_tools
-::A simple batch file to make mysql database backups. Plus it compress the .sql files with .gz to save disk space.
-::mysql-backup.bat
-
 ::mysql_backup+mysql_restore+scheduler
+::A simple batch file to make mysql database backups. 
+::It compress the .sql files with .gz to save disk space.
+::mysql-backup.bat
 
 @echo off
 
@@ -29,9 +29,7 @@ if not exist %mysqldump% goto mysql_not_installed else echo ALLRIGHT!
 tasklist /FI "IMAGENAME eq mysqld.exe" 2>NUL | find /I /N "mysqld.exe">NUL
 if "%ERRORLEVEL%"=="0" (
 	goto continue
-) else (
-	goto mysql_not_running
-)
+) else goto mysql_not_running
 
 :: set the paths and SQL user/passwords
 :continue
@@ -54,32 +52,30 @@ if "%ERRORLEVEL%"=="0" (
 	:: iterate over the folder structure in the "data" folder to get the databases
 	for /d %%f in (*) do (
 
-	if not exist %backupDir%\%dirName%\ (
-		mkdir %backupDir%\%dirName%
-	)
-	echo -----------------------------
-	echo * MySQL backup are starting *
-	echo -----------------------------
-	echo Current backup : %%f.sql
-	%mysqldump% --host="localhost" --user=%dbUser% --password=%dbPassword% --single-transaction --add-drop-table --databases %%f > %backupDir%\%dirName%\%%f.sql
+		if not exist %backupDir%\%dirName%\ (
+			mkdir %backupDir%\%dirName%
+		)
+		echo -----------------------------
+		echo * MySQL backup are starting *
+		echo -----------------------------
+		echo Current backup : %%f.sql
+		%mysqldump% --host="localhost" --user=%dbUser% --password=%dbPassword% --single-transaction --add-drop-table --databases %%f > %backupDir%\%dirName%\%%f.sql
 
-	%zip% a -tgzip %backupDir%\%dirName%\%%f.sql.gz %backupDir%\%dirName%\%%f.sql
-	echo[
-	echo Done compress and archive thus files... 
-	echo Now lets delete uncompressed SQL file...
-	del %backupDir%\%dirName%\%%f.sql
-	echo OK, now I need to take a breather for 3 seconds...
-	choice /d y /t 3 > nul
-	cls
+		%zip% a -tgzip %backupDir%\%dirName%\%%f.sql.gz %backupDir%\%dirName%\%%f.sql
+		echo Done compress and archive thus files... 
+		echo Now lets delete uncompressed SQL file...
+		del %backupDir%\%dirName%\%%f.sql
+		echo OK, now I need to take a breather for 3 seconds...
+		choice /d y /t 3 > nul
+		cls
 	)
 	popd
-
 	echo -----------------------------
 	echo + MySQL backup are finished +
 	echo -----------------------------
-	pause
+	echo:
 	start  "" "%backupDir%\"
-	exit
+exit
 
 :mysql_not_running
 	echo -----------------------------
@@ -90,11 +86,10 @@ if "%ERRORLEVEL%"=="0" (
 	CHOICE /C:YN
 	IF ERRORLEVEL 1 SET M=1
 	IF ERRORLEVEL 2 SET M=2
-	if %M%==1 (
-	start /b "" mysql_start
-	goto :continue
+	if %M%==1 (	
+		start /min /b "" %xamppfolder%mysql_start
+		goto :continue
 	) else exit
-	)
 
 :mysql_not_installed
 	echo -----------------------------
