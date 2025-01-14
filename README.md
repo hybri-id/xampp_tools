@@ -138,9 +138,10 @@ _For more examples, please refer to the [Documentation]()_
 ## Roadmap
 
 - [X] Add compression to the database's backup to save space.
-- [ ] Add htdocs backup tool.
+- [X] Add logs to restore script.
 - [ ] Add a feature to backup/restore a single database.
-- [ ] Add additional features like saving server's user/passwords in a file, or back up htdocs.
+- [ ] Add htdocs backup tool.
+- [ ] Add additional features like export server's user/passwords to a file, or improve the task scheduler.
 - [ ] Add "components" document to improve the readme.
 - [ ] Multi-language Support
     - [x] English
