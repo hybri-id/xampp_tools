@@ -138,7 +138,7 @@ _For more examples, please refer to the [Documentation]()_
 ## Roadmap
 
 - [X] Add compression to the database's backup to save space.
-- [X] Add logs to restore script.
+- [X] Add log files to the restore database script.
 - [ ] Add a feature to backup/restore a single database.
 - [ ] Add htdocs backup tool.
 - [ ] Add additional features like export server's user/passwords to a file, or improve the task scheduler.
