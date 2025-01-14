@@ -1,7 +1,46 @@
-::@HybriiD_MOD
+::[Bat To Exe Converter]
+::
+::fBE1pAF6MU+EWHreyFoxJQtEcxCNM2epOq0d5fjr072d7EkRWII=
+::fBE1pAF6MU+EWHreyFoxJQtEcxCNM2epOq0d5fjr072d7EgFUYI=
+::fBE1pAF6MU+EWHreyFoxJQtEcxCNM2epOq0d5fjr0+eesVwRa+A+e4TOyvqMIfRz
+::fBE1pAF6MU+EWHreyFoxJQtEcxCNM2epOq0d5fjr0+eesVwRa/A6a5vUyLHAIuEHig==
+::fBE1pAF6MU+EWHreyFoxJQtEcxCNM2epOq0d5fjr0/mEqkgZQe46asHZ26Du
+::YAwzoRdxOk+EWAjk
+::fBw5plQjdCyDJEGF+VIgFw9bQwiRAHO7C6UM1Pv45++Dt0EYRqw2e4C7
+::YAwzuBVtJxjWCl3EqQJgSA==
+::ZR4luwNxJguZRRnk
+::Yhs/ulQjdF+5
+::cxAkpRVqdFKZSjk=
+::cBs/ulQjdF+5
+::ZR41oxFsdFKZSTk=
+::eBoioBt6dFKZSDk=
+::cRo6pxp7LAbNWATEpCI=
+::egkzugNsPRvcWATEpCI=
+::dAsiuh18IRvcCxnZtBJQ
+::cRYluBh/LU+EWAnk
+::YxY4rhs+aU+IeA==
+::cxY6rQJ7JhzQF1fEqQJhZks0
+::ZQ05rAF9IBncCkqN+0xwdVsFAlTi
+::ZQ05rAF9IAHYFVzEqQIIKRZEXES2M2S2FdU=
+::eg0/rx1wNQPfEVWB+kM9LVsJDByDMXuqOaET5+Tooe+fpy0=
+::fBEirQZwNQPfEVWB+kM9LVsJDGQ=
+::cRolqwZ3JBvQF1fEqQIRaAhZTQiOfEyPL/UI56j57umMt11SRucsbIDJ3/S2Ie0D+gXXRLpt8ntOmckNHx5LHg==
+::dhA7uBVwLU+EWH7KxgxQ
+::YQ03rBFzNR3SWATE3FsyOhJdAQ2mXA==
+::dhAmsQZ3MwfNWATEphJie1YGHFbXXA==
+::ZQ0/vhVqMQ3MEVWAtB9wSA==
+::Zg8zqx1/OA3MEVWAtB9wSA==
+::dhA7pRFwIByZRRnk
+::Zh4grVQjdCyDJEGF+VIgFw9bQwiRAHO7C6UM1PD64vqXnVkSW+4sR5eNjvqLOOVz
+::YB416Ek+ZW8=
+::
+::
+::978f952a14a936cc963da21a135fa983
+::@Hybri-iD
 ::hybri-id/xampp_tools
 ::mysql_backup+mysql_restore+scheduler
-::A simple batch file to schedule sql database backups. Plus it can make and restore backups in .gz format to save space.
+::A simple batch file to schedule sql database backups. 
+::It can make and restore backups compressed in .gz format to save space.
 ::scheduler.bat
 
 @echo off
@@ -71,16 +110,19 @@ goto continue
 	if "%ERRORLEVEL%"=="0" (
 		goto re
 	) else (
+		echo:
 		echo -----------------------------
 		echo !!WARNING COULDN'T CONTINUE!!
 		echo -----------------------------
-		echo "Message: mysqld.exe is not running, please start it (e.g. via xampp-control)"
+		echo Message: mysqld.exe is not running, please start it (e.g. via xampp-control)
+		echo:
 		echo Do you want we try to start the service for the backup task? (Y/N)
 		CHOICE /C:YN
 		IF ERRORLEVEL 1 SET M=1
 		IF ERRORLEVEL 2 SET M=2
 		if %M%==1 (
-			start "" mysql_start
+			start /b /min "SQL" %xamppfolder%mysql_start
+			timeout 3 > NUL
 		)
 	)
 
@@ -101,11 +143,13 @@ goto continue
 	echo "+#+    +#+ +#+     +#+ +#+        +#+  +#+   +#+    +#+ +#+                 +#+    +#+    +#+ +#+    +#+ +#+        
 	echo "#+#    #+# #+#     #+# #+#    #+# #+#   #+#  #+#    #+# #+#                 #+#    #+#    #+# #+#    #+# #+#        
 	echo "#########  ###     ###  ########  ###    ###  ########  ###                 ###     ########   ########  #########
-	echo SCHEDULE: %SC% - %hour%:%mint%
+	echo "__________________________________________________________________________________________________________________
+
+	echo SCHEDULE: %SC% %hour:~-2%:%mint:~-2% - BACKUPS FOLDER: %xamppfolder%backup\mysql - SQL: %mysqldump%
 	echo:
 	echo Do you want to...
 	echo:
-	echo 1: Add/Show task - 2: Remove task - 3: Change schedule - 4: Make a backup now - 5: Restore last backup 6: Exit  
+	echo 1: Add/Show task - 2: Remove task - 3: Change schedule - 4: Make a backup now - 5: Restore last backup - 6: Exit  
 
 	CHOICE /C:123456
 	IF ERRORLEVEL 1 SET M=1
@@ -128,15 +172,18 @@ goto continue
 		goto :select_schedule
 	)
 	if %M%==4 (
-		start "" /wait mysql_backup
+		start /SEPARATE "Backup" mysql_backup
 		goto re
 	)
 	if %M%==5 (
-		start "" /wait mysql_restore
+		start /SEPARATE "Restore" mysql_restore
 		goto re
 	)
-	if %M%==6 
-	exit
+	if %M%==6 (
+		cls
+		echo You can now close this window.
+		exit /B 1
+	)
 
 :continue
 	schtasks /query /tn "MySQL\%SC%_backup" /xml > btask.xml
